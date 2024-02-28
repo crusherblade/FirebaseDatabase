@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs , addDoc,
+    deleteDoc, doc
+} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA8exevj5__ljrfGtpRYWPOwzcvcHJS6v4",
@@ -31,9 +33,24 @@ getDocs(colRef).then((snapshot) => {
 const addNewAnime = document.querySelector('.add')
 addNewAnime.addEventListener('submit', (e) => {
     e.preventDefault()
+
+    addDoc(colRef, {
+        Series: addNewAnime.series.value,
+        Character: addNewAnime.character.value
+    })
+    .then(() => {
+        addNewAnime.reset()
+    })
 })
 
 const deleteAnime = document.querySelector('.delete')
 deleteAnime.addEventListener('submit', (f) => {
     f.preventDefault()
+
+    var docRef = doc(db, 'Anime', deleteAnime.documentId.value)
+
+    deleteDoc(docRef)
+    .then(() => {
+        deleteAnime.reset()
+    })
 })
