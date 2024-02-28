@@ -27,3 +27,13 @@ getDocs(colRef).then((snapshot) => {
 .catch(err => {
     console.log(err.message)
 })
+
+const addNewAnime = document.querySelector('.add')
+addNewAnime.addEventListener('submit', (e) => {
+    e.preventDefault()
+})
+
+const deleteAnime = document.querySelector('.delete')
+deleteAnime.addEventListener('submit', (f) => {
+    f.preventDefault()
+})
