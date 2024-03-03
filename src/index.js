@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, onSnapshot , addDoc,
-    deleteDoc, doc
+    deleteDoc, doc, query, where
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,8 +15,11 @@ const firebaseConfig = {
 var app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
+//collection reference
 const colRef = collection(db, 'Anime')
 
+//query reference
+const q = query(colRef, where("Series", "==", "HxH"))
 //get collection
 /*
 getDocs(colRef).then((snapshot) => {
@@ -35,7 +38,7 @@ getDocs(colRef).then((snapshot) => {
 
 //real time data collection added
 
-onSnapshot(colRef, (snapshot) => {
+onSnapshot(q, (snapshot) => {
     let anime = []
     snapshot.docs.forEach((doc) => {
         anime.push({...doc.data(), id : doc.id})
