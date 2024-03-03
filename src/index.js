@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, onSnapshot , addDoc,
-    deleteDoc, doc, query, where
+    deleteDoc, doc, query, where, orderBy
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const db = getFirestore(app)
 const colRef = collection(db, 'Anime')
 
 //query reference
-const q = query(colRef, where("Series", "==", "HxH"))
+const q = query(colRef, orderBy('Character', 'desc'))
 //get collection
 /*
 getDocs(colRef).then((snapshot) => {
