@@ -33,7 +33,7 @@ getDocs(colRef).then((snapshot) => {
 })
 */
 
-//real time data collection
+//real time data collection added
 
 onSnapshot(colRef, (snapshot) => {
     let anime = []
