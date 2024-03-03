@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, onSnapshot , addDoc,
-    deleteDoc, doc, query, where, orderBy , serverTimestamp
+    deleteDoc, doc, query, where, orderBy , serverTimestamp,
+    getDoc
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -69,5 +70,20 @@ deleteAnime.addEventListener('submit', (f) => {
     deleteDoc(docRef)
     .then(() => {
         deleteAnime.reset()
+    })
+})
+
+//search a doc with id
+const searchDoc = document.querySelector('.searchDoc')
+
+searchDoc.addEventListener('submit', (f) => {
+    f.preventDefault();
+
+    var docRef = doc(db, 'Anime', searchDoc.search.value)
+
+    getDoc(docRef)
+    .then((doc) => {
+        console.log(doc.data(), doc.id)
+        searchDoc.reset()
     })
 })
