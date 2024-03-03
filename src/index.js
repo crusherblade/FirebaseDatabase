@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, onSnapshot , addDoc,
-    deleteDoc, doc, query, where, orderBy
+    deleteDoc, doc, query, where, orderBy , serverTimestamp
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const db = getFirestore(app)
 const colRef = collection(db, 'Anime')
 
 //query reference
-const q = query(colRef, orderBy('Character', 'desc'))
+const q = query(colRef, orderBy('createdAt', 'desc'))
 //get collection
 /*
 getDocs(colRef).then((snapshot) => {
@@ -52,7 +52,8 @@ addNewAnime.addEventListener('submit', (e) => {
 
     addDoc(colRef, {
         Series: addNewAnime.series.value,
-        Character: addNewAnime.character.value
+        Character: addNewAnime.character.value,
+        createdAt: serverTimestamp()
     })
     .then(() => {
         addNewAnime.reset()
