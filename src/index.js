@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs , addDoc,
+import { getFirestore, collection, getDocs, onSnapshot , addDoc,
     deleteDoc, doc
 } from "firebase/firestore";
 
@@ -17,6 +17,8 @@ const db = getFirestore(app)
 
 const colRef = collection(db, 'Anime')
 
+//get collection
+/*
 getDocs(colRef).then((snapshot) => {
     let anime = []
 
@@ -29,7 +31,18 @@ getDocs(colRef).then((snapshot) => {
 .catch(err => {
     console.log(err.message)
 })
+*/
 
+//real time data collection
+
+onSnapshot(colRef, (snapshot) => {
+    let anime = []
+    snapshot.docs.forEach((doc) => {
+        anime.push({...doc.data(), id : doc.id})
+    })
+
+    console.log(anime)
+})
 const addNewAnime = document.querySelector('.add')
 addNewAnime.addEventListener('submit', (e) => {
     e.preventDefault()
